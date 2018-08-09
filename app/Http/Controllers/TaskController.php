@@ -148,6 +148,23 @@ class TaskController extends Controller
 
     }
 
+    public function updatesubtask(Request $request, $id)
+    {
+
+        $this->validate($request, [
+            'title' => 'required|min:3',
+            'description' => 'required|min:10'
+        ]);
+
+        $subtask = SubTask::where('task_id', $id)->first();
+
+        $subtask->title = $request->title;
+        $subtask->description = $request->description;
+
+        $subtask->save();
+        return ['redirect' => route('tasks.index')];
+    }
+
     /**
      * Remove the specified resource from storage.
      *

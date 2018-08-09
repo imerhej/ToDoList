@@ -120,12 +120,12 @@
 					 position: "top-right", 
 					 duration : 3000
 				}))
-		        this.reload()
-		        .catch((error)=> this.errors = error.response.data.errors)
+		        
+                .catch((error)=> this.errors = error.response.data.errors)
+                
 		      },
 
 		    del(id){
-		    	// console.log(`${id}`)
 	          if (confirm("Are you sure?")){
 	            axios.delete(`/deleteSubTask/${id}`)
 	            

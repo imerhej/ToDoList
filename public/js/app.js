@@ -51214,15 +51214,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					position: "top-right",
 					duration: 3000
 				});
-			});
-			this.reload().catch(function (error) {
+			}).catch(function (error) {
 				return _this2.errors = error.response.data.errors;
 			});
 		},
 		del: function del(id) {
 			var _this3 = this;
 
-			// console.log(`${id}`)
 			if (confirm("Are you sure?")) {
 				axios.delete('/deleteSubTask/' + id).then(function (response) {
 					return _this3.$toasted.show('Sub-Task Deleted!', {
