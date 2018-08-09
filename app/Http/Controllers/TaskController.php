@@ -70,7 +70,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        return Task::findOrFail($id);
     }
 
     /**
@@ -93,7 +93,20 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:3',
+            'description' => 'required|min:10',
+            'priority' => 'required'
+        ]);
+        $task = Task::findOrFail($id);
+
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->priority = $request->priority;
+
+        $task->save();
+
+        return ['redirect' => route('tasks.index')];
     }
 
     /**
