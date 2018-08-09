@@ -51126,11 +51126,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			task: {}
+			task: {},
+			subtask: {
+				title: '',
+				description: ''
+			},
+			rows: [],
+			newSubTask: {},
+			errors: {}
 		};
 	},
 	mounted: function mounted() {
@@ -51139,6 +51186,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		axios.get('/tasks/' + this.$route.params.id).then(function (response) {
 			return _this.task = response.data;
 		});
+
+		axios.post('/getSubTask/' + this.$route.params.id).then(function (response) {
+			return _this.newSubTask = response.data;
+		});
+	},
+
+
+	methods: {
+		addSubTask: function addSubTask() {
+			var _this2 = this;
+
+			axios.post('/storeSubTask/' + this.task.id, {
+				task_id: this.task.id,
+				title: this.subtask.title,
+				description: this.subtask.description
+
+			}).then(function (response) {
+				return _this2.newSubTask = response.data;
+			}).then(function (response) {
+				return _this2.$toasted.show('Sub-Task Created!', {
+					theme: "bubble",
+					position: "top-right",
+					duration: 3000
+				});
+			});
+			this.reload().catch(function (error) {
+				return _this2.errors = error.response.data.errors;
+			});
+		},
+		del: function del(id) {
+			var _this3 = this;
+
+			// console.log(`${id}`)
+			if (confirm("Are you sure?")) {
+				axios.delete('/deleteSubTask/' + id).then(function (response) {
+					return _this3.$toasted.show('Sub-Task Deleted!', {
+						theme: "bubble",
+						position: "top-right",
+						duration: 3000
+					});
+				});
+				this.reload().catch(function (error) {
+					return _this3.errors = error.response.data.errors;
+				});
+			}
+		},
+		addRow: function addRow() {
+			var elem = document.createElement('tr');
+			this.rows.push({
+				title: '',
+				description: ''
+			});
+			this.hideButton();
+		},
+		removeElement: function removeElement(index) {
+			this.rows.splice(index, 1);
+			$("#subtaskform").show();
+		},
+		hideButton: function hideButton() {
+			$("#subtaskform").hide();
+		},
+		reload: function reload() {
+			location.reload();
+		}
 	}
 });
 
@@ -51173,35 +51284,270 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _vm._m(0),
-              _vm._v(" " + _vm._s(_vm.task.title) + "\n\t   \t\t\t \t")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _vm._m(1),
-              _vm._v("  " + _vm._s(_vm.task.description) + "\n\t\t            ")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _vm._m(2),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(0),
+                _vm._v(" " + _vm._s(_vm.task.title) + "\n\t   \t\t\t \t")
+              ]),
               _vm._v(" "),
-              _vm.task.priority == 1
-                ? _c("span", [_vm._v("High Priority")])
-                : _vm.task.priority == 2
-                  ? _c("span", [_vm._v("Medium Priority")])
-                  : _c("span", [_vm._v("Low Priority")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _vm._m(3),
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(1),
+                _vm._v(
+                  "  " + _vm._s(_vm.task.description) + "\n\t\t            "
+                )
+              ]),
               _vm._v(" "),
-              _vm.task.completed == 1
-                ? _c("span", [_vm._v("Completed")])
-                : _c("span", [_vm._v("Not Completed")])
-            ])
-          ])
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _vm.task.priority == 1
+                  ? _c("span", [_vm._v("High Priority")])
+                  : _vm.task.priority == 2
+                    ? _c("span", [_vm._v("Medium Priority")])
+                    : _c("span", [_vm._v("Low Priority")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _vm.task.completed == 1
+                  ? _c("span", [_vm._v("Completed")])
+                  : _c("span", [_vm._v("Not Completed")])
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              Object.keys(_vm.newSubTask).length > 0
+                ? _c("span", [
+                    _c(
+                      "label",
+                      { staticClass: "text-muted", attrs: { for: "" } },
+                      [_vm._v("Sub-Task Details:")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(4),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.newSubTask.title) +
+                          "\n\t\t   \t\t\t \t"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(5),
+                      _vm._v(
+                        "  " +
+                          _vm._s(_vm.newSubTask.description) +
+                          "\n\t\t\t            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("i", {
+                          staticClass:
+                            "btn btn-danger btn-sm fa fa-trash-o pull-right",
+                          attrs: { "aria-hidden": "true" },
+                          on: {
+                            click: function($event) {
+                              _vm.del(_vm.newSubTask.id)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("router-link", {
+                          staticClass:
+                            "btn btn-success btn-sm pull-right fa fa-edit",
+                          attrs: {
+                            to: {
+                              name: "editsubtask",
+                              params: { id: _vm.task.id }
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                : _c(
+                    "span",
+                    _vm._l(_vm.rows, function(row, index) {
+                      return _c("div", { attrs: { id: "subTaskForm" } }, [
+                        _c(
+                          "form",
+                          {
+                            attrs: { method: "POST" },
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                return _vm.addSubTask($event)
+                              }
+                            }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.subtask.title,
+                                  expression: "subtask.title"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Sub Task Title"
+                              },
+                              domProps: { value: _vm.subtask.title },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.subtask,
+                                    "title",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.title
+                              ? _c("span", {
+                                  staticClass: "text-danger",
+                                  domProps: {
+                                    textContent: _vm._s(_vm.errors.title[0])
+                                  }
+                                })
+                              : _vm._e(),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.subtask.description,
+                                  expression: "subtask.description"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                id: "description",
+                                placeholder: "Sub Task Description"
+                              },
+                              domProps: { value: _vm.subtask.description },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.subtask,
+                                    "description",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.description
+                              ? _c("span", {
+                                  staticClass: "text-danger",
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      _vm.errors.description[0]
+                                    )
+                                  }
+                                })
+                              : _vm._e(),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "btn btn-outline btn-sm fa fa-times-circle-o pull-right",
+                                staticStyle: { cursor: "pointer" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.removeElement(index)
+                                  }
+                                }
+                              },
+                              [_vm._v(" Remove")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-primary btn-sm pull-right",
+                                attrs: { type: "submit" }
+                              },
+                              [_vm._v("Save")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: (_vm.task_id = _vm.task.id),
+                                  expression: "task_id=task.id"
+                                }
+                              ],
+                              attrs: { type: "hidden" },
+                              domProps: { value: (_vm.task_id = _vm.task.id) },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    (_vm.task_id = _vm.task),
+                                    "id",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                    })
+                  ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                { staticClass: "btn btn-secondary btn-sm", attrs: { to: "/" } },
+                [_vm._v("Back To Tasks")]
+              ),
+              _vm._v(" "),
+              Object.keys(_vm.newSubTask).length === 0
+                ? _c("span", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-sm",
+                        attrs: { id: "subtaskform" },
+                        on: { click: _vm.addRow }
+                      },
+                      [_vm._v("Add Sub Task")]
+                    )
+                  ])
+                : _vm._e()
+            ],
+            1
+          )
         ])
       ])
     ])
@@ -51246,6 +51592,26 @@ var staticRenderFns = [
       "label",
       { staticClass: "col-form-label", attrs: { for: "completed" } },
       [_c("b", [_vm._v("Completed:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "title" } },
+      [_c("b", [_vm._v("Sub Title:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "description" } },
+      [_c("b", [_vm._v("Sub Description:")])]
     )
   }
 ]
