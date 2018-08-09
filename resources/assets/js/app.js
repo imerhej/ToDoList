@@ -22,6 +22,7 @@ Vue.use(Toasted);
  */
 
 import TodoComponent from "./components/TodoComponent.vue";
+import Create from "./components/Create.vue";
 
 const routes = [
     {
@@ -29,7 +30,8 @@ const routes = [
         components: {
             todocomponent: TodoComponent
         }
-    }
+    },
+    { path: "/create", component: Create, name: "create" }
 ];
 
 const router = new VueRouter({
