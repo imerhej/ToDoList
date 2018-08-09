@@ -20,3 +20,4 @@ Auth::routes();
 // Route::get('/home', 'TaskController@index')->name('home');
 Route::resource('/tasks', 'TaskController');
 Route::post('/getTasks', 'TaskController@getTasks');
+Route::post('/tasks/{id}', 'TaskController@updateCompleted')->name('tasks.completed');

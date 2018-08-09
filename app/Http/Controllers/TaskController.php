@@ -109,6 +109,22 @@ class TaskController extends Controller
         return ['redirect' => route('tasks.index')];
     }
 
+    public function updateCompleted($id)
+    {
+
+        $task = Task::findOrFail($id);
+        if ($task->completed == 0) {
+            $task->completed = 1;
+
+            $task->save();
+        } else if ($task->completed == 1) {
+            $task->completed = 0;
+
+            $task->save();
+        }
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
