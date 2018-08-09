@@ -24,6 +24,7 @@ Vue.use(Toasted);
 import TodoComponent from "./components/TodoComponent.vue";
 import Create from "./components/Create.vue";
 import Edit from "./components/Edit.vue";
+import Show from "./components/Show.vue";
 
 const routes = [
     {
@@ -33,7 +34,8 @@ const routes = [
         }
     },
     { path: "/create", component: Create, name: "create" },
-    { path: "/edit/:id", component: Edit, name: "edit" }
+    { path: "/edit/:id", component: Edit, name: "edit" },
+    { path: "/show/:id", component: Show, name: "show" }
 ];
 
 const router = new VueRouter({

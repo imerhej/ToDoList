@@ -24865,6 +24865,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Create_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Create_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Edit_vue__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_Edit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Show_vue__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_Show_vue__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -24892,12 +24894,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_
 
 
 
+
 var routes = [{
     path: "/",
     components: {
         todocomponent: __WEBPACK_IMPORTED_MODULE_3__components_TodoComponent_vue___default.a
     }
-}, { path: "/create", component: __WEBPACK_IMPORTED_MODULE_4__components_Create_vue___default.a, name: "create" }, { path: "/edit/:id", component: __WEBPACK_IMPORTED_MODULE_5__components_Edit_vue___default.a, name: "edit" }];
+}, { path: "/create", component: __WEBPACK_IMPORTED_MODULE_4__components_Create_vue___default.a, name: "create" }, { path: "/edit/:id", component: __WEBPACK_IMPORTED_MODULE_5__components_Edit_vue___default.a, name: "edit" }, { path: "/show/:id", component: __WEBPACK_IMPORTED_MODULE_6__components_Show_vue___default.a, name: "show" }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     routes: routes
@@ -51026,6 +51029,232 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-39804701", module.exports)
+  }
+}
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(42)
+/* script */
+var __vue_script__ = __webpack_require__(60)
+/* template */
+var __vue_template__ = __webpack_require__(61)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Show.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-745dfb18", Component.options)
+  } else {
+    hotAPI.reload("data-v-745dfb18", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			task: {}
+		};
+	},
+	mounted: function mounted() {
+		var _this = this;
+
+		axios.get('/tasks/' + this.$route.params.id).then(function (response) {
+			return _this.task = response.data;
+		});
+	}
+});
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c(
+          "div",
+          { staticClass: "card-header" },
+          [
+            _vm._v(
+              "\n\t\t\t\t" + _vm._s(_vm.task.title) + "'s Details\n\t\t\t\t "
+            ),
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-success btn-sm pull-right fa fa-edit",
+                attrs: { to: { name: "edit" } }
+              },
+              [_vm._v(" Edit Task")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _vm._m(0),
+              _vm._v(" " + _vm._s(_vm.task.title) + "\n\t   \t\t\t \t")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _vm._m(1),
+              _vm._v("  " + _vm._s(_vm.task.description) + "\n\t\t            ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _vm.task.priority == 1
+                ? _c("span", [_vm._v("High Priority")])
+                : _vm.task.priority == 2
+                  ? _c("span", [_vm._v("Medium Priority")])
+                  : _c("span", [_vm._v("Low Priority")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _vm.task.completed == 1
+                ? _c("span", [_vm._v("Completed")])
+                : _c("span", [_vm._v("Not Completed")])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "title" } },
+      [_c("b", [_vm._v("Title:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "description" } },
+      [_c("b", [_vm._v("Description:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "priority" } },
+      [_c("b", [_vm._v("Priority Level:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "completed" } },
+      [_c("b", [_vm._v("Completed:")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-745dfb18", module.exports)
   }
 }
 
