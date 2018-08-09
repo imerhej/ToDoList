@@ -25,6 +25,7 @@ import TodoComponent from "./components/TodoComponent.vue";
 import Create from "./components/Create.vue";
 import Edit from "./components/Edit.vue";
 import Show from "./components/Show.vue";
+import EditSubTask from "./components/EditSubTask.vue";
 
 const routes = [
     {
@@ -35,7 +36,8 @@ const routes = [
     },
     { path: "/create", component: Create, name: "create" },
     { path: "/edit/:id", component: Edit, name: "edit" },
-    { path: "/show/:id", component: Show, name: "show" }
+    { path: "/show/:id", component: Show, name: "show" },
+    { path: "/editsubtask/:id", component: EditSubTask, name: "editsubtask" }
 ];
 
 const router = new VueRouter({

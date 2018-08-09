@@ -24867,6 +24867,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_Edit_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Show_vue__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_Show_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_EditSubTask_vue__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_EditSubTask_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_EditSubTask_vue__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -24895,12 +24897,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_
 
 
 
+
 var routes = [{
     path: "/",
     components: {
         todocomponent: __WEBPACK_IMPORTED_MODULE_3__components_TodoComponent_vue___default.a
     }
-}, { path: "/create", component: __WEBPACK_IMPORTED_MODULE_4__components_Create_vue___default.a, name: "create" }, { path: "/edit/:id", component: __WEBPACK_IMPORTED_MODULE_5__components_Edit_vue___default.a, name: "edit" }, { path: "/show/:id", component: __WEBPACK_IMPORTED_MODULE_6__components_Show_vue___default.a, name: "show" }];
+}, { path: "/create", component: __WEBPACK_IMPORTED_MODULE_4__components_Create_vue___default.a, name: "create" }, { path: "/edit/:id", component: __WEBPACK_IMPORTED_MODULE_5__components_Edit_vue___default.a, name: "edit" }, { path: "/show/:id", component: __WEBPACK_IMPORTED_MODULE_6__components_Show_vue___default.a, name: "show" }, { path: "/editsubtask/:id", component: __WEBPACK_IMPORTED_MODULE_7__components_EditSubTask_vue___default.a, name: "editsubtask" }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     routes: routes
@@ -51622,6 +51625,299 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-745dfb18", module.exports)
+  }
+}
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(42)
+/* script */
+var __vue_script__ = __webpack_require__(63)
+/* template */
+var __vue_template__ = __webpack_require__(64)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\EditSubTask.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-71037b54", Component.options)
+  } else {
+    hotAPI.reload("data-v-71037b54", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			subtask: {},
+			errors: {}
+		};
+	},
+	mounted: function mounted() {
+		var _this = this;
+
+		axios.post('/getSubTask/' + this.$route.params.id).then(function (response) {
+			return _this.subtask = response.data;
+		});
+	},
+
+
+	methods: {
+		updateSubTask: function updateSubTask() {
+			var _this2 = this;
+
+			axios.post('/updatesubtask/' + this.$route.params.id, this.$data.subtask).then(this.onSuccess).catch(function (error) {
+				return _this2.errors = error.response.data.errors;
+			});
+		},
+		onSuccess: function onSuccess(response) {
+			window.location = response.data.redirect;
+			this.$toasted.show('Sub Task Updated!', {
+				theme: "bubble",
+				position: "top-right",
+				duration: 3000
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _vm._v("\n\t\t\t\tEdit Sub Task\n\t\t\t")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              {
+                attrs: { method: "PUT" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.updateSubTask($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.subtask.title,
+                        expression: "subtask.title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "title", id: "title" },
+                    domProps: { value: _vm.subtask.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.subtask, "title", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.title
+                    ? _c("span", {
+                        staticClass: "text-danger",
+                        domProps: { textContent: _vm._s(_vm.errors.title[0]) }
+                      })
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.subtask.description,
+                        expression: "subtask.description"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "description", id: "description" },
+                    domProps: { value: _vm.subtask.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.subtask,
+                          "description",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.description
+                    ? _c("span", {
+                        staticClass: "text-danger",
+                        domProps: {
+                          textContent: _vm._s(_vm.errors.description[0])
+                        }
+                      })
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-sm btn-secondary",
+                        attrs: {
+                          to: {
+                            name: "show",
+                            params: { id: _vm.subtask.task_id }
+                          }
+                        }
+                      },
+                      [_vm._v("Back")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary btn-sm pull-right",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Update Sub Task")]
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "title" } },
+      [_c("b", [_vm._v("Sub Title:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "description" } },
+      [_c("b", [_vm._v("Sub Description:")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-71037b54", module.exports)
   }
 }
 
