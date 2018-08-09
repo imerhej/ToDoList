@@ -49,7 +49,8 @@
 
 					</span>
 					<span v-else="Object.keys(newSubTask).length === 0" >
-						<div v-for="(row, index) in rows" id="subTaskForm">
+                        <div v-for="(row, index) in rows" id="subTaskForm">
+                        <label for="" class="text-muted">Sub-Task Details:</label>
 							<form method="POST" @submit.prevent="addSubTask">
 		                    
 

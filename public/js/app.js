@@ -51166,6 +51166,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -51379,6 +51380,12 @@ var render = function() {
                     "span",
                     _vm._l(_vm.rows, function(row, index) {
                       return _c("div", { attrs: { id: "subTaskForm" } }, [
+                        _c(
+                          "label",
+                          { staticClass: "text-muted", attrs: { for: "" } },
+                          [_vm._v("Sub-Task Details:")]
+                        ),
+                        _vm._v(" "),
                         _c(
                           "form",
                           {

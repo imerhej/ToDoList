@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\SubTask;
 
 class TaskController extends Controller
 {
@@ -55,6 +56,23 @@ class TaskController extends Controller
         $task->save();
 
         return ['redirect' => route('tasks.index')];
+    }
+
+    public function storeSubTask(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|min:3',
+            'description' => 'required|min:10'
+        ]);
+
+        $subtask = new SubTask();
+
+        $subtask->task_id = $request->task_id;
+        $subtask->title = $request->title;
+        $subtask->description = $request->description;
+
+        $subtask->save();
+
     }
 
     public function getTasks()
