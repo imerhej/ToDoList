@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Task;
 
 class TaskController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return view('tasks');
     }
 
     /**
@@ -35,6 +41,11 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function getTasks()
+    {
+        return Task::orderBy('priority', 'ASC')->get();
     }
 
     /**
