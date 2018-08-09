@@ -51381,12 +51381,6 @@ var render = function() {
                     _vm._l(_vm.rows, function(row, index) {
                       return _c("div", { attrs: { id: "subTaskForm" } }, [
                         _c(
-                          "label",
-                          { staticClass: "text-muted", attrs: { for: "" } },
-                          [_vm._v("Sub-Task Details:")]
-                        ),
-                        _vm._v(" "),
-                        _c(
                           "form",
                           {
                             attrs: { method: "POST" },

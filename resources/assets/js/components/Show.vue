@@ -50,7 +50,7 @@
 					</span>
 					<span v-else="Object.keys(newSubTask).length === 0" >
                         <div v-for="(row, index) in rows" id="subTaskForm">
-                        <label for="" class="text-muted">Sub-Task Details:</label>
+                        
 							<form method="POST" @submit.prevent="addSubTask">
 		                    
 
@@ -69,9 +69,9 @@
 					</span>
 
 					<router-link to="/" class="btn btn-secondary btn-sm">Back To Tasks</router-link>
-				<span v-if="Object.keys(newSubTask).length === 0">
-					<button class="btn btn-success btn-sm" id="subtaskform" @click="addRow" >Add Sub Task</button>
-				</span>
+                    <span v-if="Object.keys(newSubTask).length === 0">
+                        <button class="btn btn-success btn-sm" id="subtaskform" @click="addRow" >Add Sub Task</button>
+                    </span>
 
 				</div>
 			</div>

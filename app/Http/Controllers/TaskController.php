@@ -80,6 +80,11 @@ class TaskController extends Controller
         return Task::orderBy('priority', 'ASC')->get();
     }
 
+    public function getSubTask($id)
+    {
+        return SubTask::where('task_id', $id)->first();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -153,5 +158,11 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->delete();
+    }
+
+    public function deleteSubTask($id)
+    {
+        $subtask = SubTask::findOrFail($id);
+        $subtask->delete();
     }
 }
