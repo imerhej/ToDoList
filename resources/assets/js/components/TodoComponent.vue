@@ -22,7 +22,7 @@
 			          <tbody>
 			            <tr v-for="task,index in tasks">
 			                <td id="title">{{task.title}}</td>
-			                <td>{{strlimit(task.description, 40)}}</td>
+			                <td>{{(task.description).substring(0, 40)+"..."}}</td>
 			                <td v-if="task.priority == 1">
 			                	High Priority
 			                </td>
@@ -86,7 +86,7 @@
          			this.$toasted.show('Task updated!',{ 
 					 theme: "bubble", 
 					 position: "top-right", 
-					 duration : 5000
+					 duration : 3000
 				})
          			this.task = response.data
          		})
@@ -100,7 +100,7 @@
 	            .then((response) => this.$toasted.show('Task Deleted!',{ 
 					 theme: "bubble", 
 					 position: "top-right", 
-					 duration : 5000
+					 duration : 3000
 				}))
 	            .catch((error) => this.errors = error.response.data.errors)
 	          }
@@ -109,10 +109,6 @@
 
         	onDeleted() {
         		alert('Task Deleted!');
-        	},
-
-        	strlimit(text, stop, clamp){
-        		return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
         	}
 		}
 	}

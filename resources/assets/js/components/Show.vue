@@ -25,7 +25,7 @@
 		            </div>
 
 		            <div class="form-group">
-		                <label for="completed" class="col-form-label"><b>Completed:</b></label>
+		                <label for="completed" class="col-form-label"><b>Status:</b></label>
 		                <span v-if="task.completed == 1">Completed</span>
                 		<span v-else="task.completed == 0">Not Completed</span> 
 		    		</div>
